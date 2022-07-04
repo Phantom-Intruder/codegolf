@@ -7,17 +7,17 @@ class ListNode {
     }
 }
 class Solution {
-    public static ListNode findCycleStart(ListNode head) {
-        ListNode tPointer = head.next;
-        ListNode hPointer = head.next.next;
-        while (tPointer.value != hPointer.value) {
-            if (tPointer.value == hPointer.value) {
-                return head;
+    public static boolean findCycleStart(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow){
+                return true;
             }
-           tPointer = head.next;
-           hPointer = head.next.next;
        }
-        return head;
+        return false;
     }
 
     public static void main(String[] args) {
@@ -29,12 +29,12 @@ class Solution {
         head.next.next.next.next.next = new ListNode(6);
 
         head.next.next.next.next.next.next = head.next.next;
-        System.out.println(" cycle start: " + Solution.findCycleStart(head).value);
+        System.out.println(" cycle start: " + Solution.findCycleStart(head));
 
         head.next.next.next.next.next.next = head.next.next.next;
-        System.out.println(" cycle start: " + Solution.findCycleStart(head).value);
+        System.out.println(" cycle start: " + Solution.findCycleStart(head));
 
         head.next.next.next.next.next.next = head;
-        System.out.println(" cycle start: " + Solution.findCycleStart(head).value);
+        System.out.println(" cycle start: " + Solution.findCycleStart(head));
     }
 }
